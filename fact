@@ -1,9 +1,0 @@
-#!/bin/bash
-
-TSUTSA=$1
-while read NUMBERS;
-do
-    factors=($(factor $NUMBERS))
-    echo "$NUMBERS=$((${factors[1]}))*${factors[0]}"
-done < $TSUTSA
-
