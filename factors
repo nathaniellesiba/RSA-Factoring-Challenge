@@ -1,9 +1,34 @@
-#!/bin/bash
+#!/usr/bin/python3
+import sys
 
-TSUTSA=$1
-while read NUMBERS;
-do
-    factors=($(factor $NUMBERS))
-    echo "$NUMBERS=$((${factors[1]}))*${factors[0]}"
-done < $TSUTSA
+def factorize(value):
+    """
+    Factorize a number into a product of two smaller numbers.
+    Output format: n = p * q
+    """
+    if value < 2:
+        return
 
+    i = 2
+    while value % i:
+        i += 1
+
+    print(f"{value} = {int(value / i)} * {i}")
+
+if len(sys.argv) != 2:
+    print("Usage: {} <file>".format(sys.argv[0]))
+    sys.exit(1)
+
+try:
+    with open(sys.argv[1]) as file:
+        for line in file:
+            try:
+                value = int(line.strip())
+                factorize(value)
+            except ValueError:
+                print(f"Invalid input in the file: {line.strip()}")
+except FileNotFoundError:
+    print(f'File not found: {sys.argv[1]}')
+except Exception as e:
+    print(f'An error occurred: {str(e)}')
+    sys.exit(1)
