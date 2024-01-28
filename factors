@@ -3,6 +3,6 @@
 TSUTSA=$1
 while read NUMBERS;
 do
-factors=($(factor $NUMBER))
+factors=($(factor $NUMBERS))
 echo "$NUMBERS=$(($NUMBERS/${factors[1]}))*${factors[1]}"
 done < $TSUTSA
